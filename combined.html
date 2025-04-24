@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV de Sergey B</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Default (Day) Mode Styles */
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.5;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1100px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 25px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #007bff;
+        }
+
+        header h1 {
+            font-size: 2.4em;
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        header p {
+            font-size: 0.85em;
+            color: #777;
+            margin-top: 8px;
+        }
+
+        section {
+            margin-bottom: 25px;
+        }
+
+        section h2 {
+            border-bottom: 1px solid #007bff;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.6em;
+            cursor: pointer; /* Indicate it's clickable */
+        }
+
+        .content {
+            overflow: hidden;
+            max-height: 1000px; /* Initial visible height */
+            transition: max-height 0.3s ease;
+        }
+
+        .content.collapsed {
+            max-height: 0;
+        }
+
+        .job-experience,
+        .education,
+        .volunteering,
+        .project {
+            margin-bottom: 15px;
+            padding: 12px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        .job-experience h3,
+        .education h3,
+        .volunteering h3,
+        .project h3 {
+            margin: 0;
+            color: #34495e;
+            font-size: 1.1em;
+        }
+
+        .job-experience p,
+        .education p,
+        .volunteering p,
+        .project p {
+            margin: 6px 0;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .job-experience ul {
+            padding-left: 18px;
+            list-style-type: disc;
+        }
+
+        .job-experience li {
+            margin-bottom: 8px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 6px;
+        }
+
+        .skill {
+            background-color: #e0f7fa;
+            color: #00838f;
+            padding: 6px 12px;
+            border-radius: 18px;
+            font-size: 0.8em;
+            border: 1px solid #b2ebf2;
+        }
+
+        i {
+            color: #007bff;
+            font-style: italic;
+        }
+
+        .switch-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+            margin-right: 15px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 20px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(20px);
+        }
+
+        .switch-label {
+            margin-left: 8px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .switch-container .switch + .switch {
+            margin-left: 15px;
+        }
+
+        /* Night Mode Styles */
+        body.night-mode {
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+        }
+
+        .container.night-mode {
+            background: #2c2c2c;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+        }
+
+        header.night-mode {
+            border-bottom-color: #00ffc6;
+        }
+
+        header.night-mode h1 {
+            color: #00ffc6;
+        }
+
+        header.night-mode p {
+            color: #999;
+        }
+
+        section.night-mode h2 {
+            border-bottom-color: #00bfff;
+            color: #00bfff;
+        }
+
+        .job-experience.night-mode,
+        .education.night-mode,
+        .volunteering.night-mode,
+        .project.night-mode {
+            background-color: #333;
+            border-color: #555;
+        }
+
+        .job-experience.night-mode h3,
+        .education.night-mode h3,
+        .volunteering.night-mode h3,
+        .project.night-mode h3 {
+            color: #00ffc6;
+        }
+
+        .job-experience.night-mode p,
+        .education.night-mode p,
+        .volunteering.night-mode p,
+        .project.night-mode p {
+            color: #ccc;
+        }
+
+        .job-experience.night-mode li {
+            color: #eee;
+        }
+
+        .skill.night-mode {
+            background-color: #444;
+            color: #fff;
+            border-color: #666;
+        }
+
+        .switch-label.night-mode {
+            color: #ddd;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="switch-container">
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+        </label>
+        <label class="switch-label" for="theme-toggle" data-en="Night / Day" data-fr="Nuit / Jour">Nuit / Jour</label>
+
+        <label class="switch">
+            <input type="checkbox" id="lang-toggle">
+            <span class="slider round"></span>
+        </label>
+        <label class="switch-label" for="lang-toggle" data-en="English" data-fr="Français">Français</label>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 data-en="Sergey B" data-fr="Sergey B">CV de Sergey B</h1>
+            <p>
+                <span data-en="email" data-fr="courriel">courriel</span>: fly.ford_8h@icloud.com |
+                <span data-en="Location" data-fr="Localisation">Localisation</span>: Montréal |
+                <span data-en="Availability" data-fr="Disponibilités">Disponibilités</span>: Remote, Hybrid, and On-site
+            </p>
+        </header>
+
+        <section>
+            <h2 data-en="Profile" data-fr="Profil">Profil</h2>
+            <div class="content">
+                <p data-en="Proactive and detail-oriented professional with experience in application development, seeking a transition to a Technical or Security Analyst role. Proven ability to analyze complex situations, identify risks, and implement solutions. Trained in cybersecurity principles and technologies. Eager to leverage strong analytical, problem-solving, and communication skills to protect organizational assets. Also possesses transferable skills in risk assessment, incident response, and process improvement."
+                   data-fr="Professionnel proactif et minutieux, possédant une expérience dans le dévelopement des applications, souhaitant évoluer vers un poste d'analyste technique ou en sécurité. Capacité avérée à analyser des situations complexes, à identifier les risques et à mettre en œuvre des solutions. Formé selon les principes et technologies de la cybersécurité. Soucieux de mettre à profit ses solides compétences en analyse, résolution de problèmes et communication pour protéger les actifs de l'organisation. Possède également des compétences transférables en matière d'évaluation des risques, de réponse aux incidents et d'amélioration des processus.">
+                    Professionnel proactif et minutieux, possédant une expérience dans le dévelopement des applications,
+                    souhaitant évoluer vers un poste d'analyste technique ou en sécurité. Capacité avérée à analyser des
+                    situations complexes, à identifier les risques et à mettre en œuvre des solutions. Formé selon les principes et technologies de la cybersécurité. Soucieux de mettre à profit ses
+                    solides compétences en analyse, résolution de problèmes et communication pour protéger les actifs de
+                    l'organisation. Possède également des compétences transférables en matière d'évaluation des risques, de
+                    réponse aux incidents et d'amélioration des processus.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-en="Skills" data-fr="Compétences">Compétences</h2>
+            <div class="content">
+                <div class="skills-list">
+                    <span class="skill" data-en="Network best practices: Network security, operating system security, vulnerability management, risk assessment"
+                          data-fr="Pratiques exemplaires de réseau: Sécurité réseau, sécurité du système d'exploitation, gestion des vulnérabilités, évaluation des risques">Pratiques exemplaires de réseau: Sécurité réseau, sécurité du système d'exploitation, gestion des vulnérabilités, évaluation des risques</span>
+                    <span class="skill" data-en="Security Tools: SIEM (Splunk, QRadar), IDS/IPS, vulnerability scanners, firewall administration"
+                          data-fr="Outils de sécurité: SIEM (Splunk, QRadar), IDS/IPS, scanneurs de vulnérabilités, administration de pare-feu">Outils de sécurité: SIEM (Splunk, QRadar), IDS/IPS, scanneurs de vulnérabilités, administration de pare-feu</span>
+                    <span class="skill" data-en="Cloud Security: Basic understanding of cloud security principles (AWS/Azure Security)"
+                          data-fr="Sécurité Cloud: Compréhension de base des principes de sécurité cloud (Sécurité AWS/Azure)">Sécurité Cloud: Compréhension de base des principes de sécurité cloud (Sécurité AWS/Azure)</span>
+                    <span class="skill" data-en="Scripting: Bash, Python (for security tasks)"
+                          data-fr="Scripting: Bash, Python (pour les tâches de sécurité)">Scripting: Bash, Python (pour les tâches de sécurité)</span>
+                    <span class="skill" data-en="Incident Response: Basic understanding of incident handling procedures"
+                          data-fr="Réponse aux incidents: Compréhension de base des procédures de gestion des incidents">Réponse aux incidents: Compréhension de base des procédures de gestion des incidents</span>
+                    <span class="skill" data-en="Risk Management: Identifying, assessing, and mitigating risks"
+                          data-fr="Gestion des risques: Identification, évaluation et atténuation des risques">Gestion des risques: Identification, évaluation et atténuation des risques</span>
+                    <span class="skill" data-en="Compliance: Familiarity with security standards (NIST, ISO 27001, PCI DSS)"
+                          data-fr="Conformité: Familiarité avec les normes de sécurité (NIST, ISO 27001, PCI DSS)">Conformité: Familiarité avec les normes de sécurité (NIST, ISO 27001, PCI DSS)</span>
+                    <span class="skill" data-en="Attention to Detail: Meticulousness in identifying and documenting security issues"
+                          data-fr="Souci du détail: Minutie dans l'identification et la documentation des problèmes de sécurité">Souci du détail: Minutie dans l'identification et la documentation des problèmes de sécurité</span>
+                    <span class="skill" data-en="Operating Systems: Windows Server, Linux, macOS"
+                          data-fr="Systèmes d'exploitation: Windows Server, Linux, macOS">Systèmes d'exploitation: Windows Server, Linux, macOS</span>
+                    <span class="skill" data-en="Networking: TCP/IP, DNS, DHCP, basic routing and switching"
+                          data-fr="Réseautage: TCP/IP, DNS, DHCP, routage et commutation de base">Réseautage: TCP/IP, DNS, DHCP, routage et commutation de base</span>
+                    <span class="skill" data-en="Hardware: Computer hardware troubleshooting, basic server hardware"
+                          data-fr="Matériel: Dépannage de matériel informatique, matériel serveur de base">Matériel: Dépannage de matériel informatique, matériel serveur de base</span>
+                    <span class="skill" data-en="Software: Microsoft Office Suite, ticketing systems (Jira), remote desktop tools"
+                          data-fr="Logiciel: Suite Microsoft Office, systèmes de billetterie (Jira), outils de bureau à distance">Logiciel: Suite Microsoft Office, systèmes de billetterie (Jira), outils de bureau à distance</span>
+                    <span class="skill" data-en="Cloud Fundamentals: Basic understanding of cloud concepts (IaaS, SaaS), AWS/Azure fundamentals"
+                          data-fr="Bases du Cloud: Compréhension de base des concepts du cloud (IaaS, SaaS), bases d'AWS/Azure">Bases du Cloud: Compréhension de base des concepts du cloud (IaaS, SaaS), bases d'AWS/Azure</span>
+                    <span class="skill" data-en="Customer Service: Patient communication, problem diagnosis, solution delivery"
+                          data-fr="Service à la clientèle: Communication patiente, diagnostic de problèmes, livraison de solutions">Service à la clientèle: Communication patiente, diagnostic de problèmes, livraison de solutions</span>
+                    <span class="skill" data-en="Problem-Solving: Analytical thinking, root cause analysis"
+                          data-fr="Résolution de problèmes: Pensée analytique, analyse des causes profondes">Résolution de problèmes: Pensée analytique, analyse des causes profondes</span>
+                    <span class="skill" data-en="Inventory Management: Tracking, procurement, and asset management"
+                          data-fr="Gestion des inventaires: Suivi, approvisionnement et gestion des actifs">Gestion des inventaires: Suivi, approvisionnement et gestion des actifs</span>
+                    <span class="skill" data-en="Documentation: Creating and maintaining clear technical documentation"
+                          data-fr="Documentation: Création et maintenance d'une documentation technique claire">Documentation: Création et maintenance d'une documentation technique claire</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-en="Experience" data-fr="Expérience">Expérience</h2>
+            <div class="content">
+                <div class="job-experience">
+                    <h3 data-en=" Service Department Functions Assistant | Volkswagen | October 2024 - Present"
+                    data-fr="Assistant aux fonctions du département de service | Volkswagen | Octobre 2024 - actuel">Assistant aux fonctions du département de service | **** | Octobre 2024 - actuel</h3>
+                    <p data-en="Montreal" data-fr="Montréal">Montréal</p>
+                    <ul>
+                        <li data-en="Adjusted the stored materials management system (tires, tools, etc.), limiting losses."
+                            data-fr="Ajustements au système en gestion du matériel entreposé (pneus, outils etc.), limitant les pertes.">Ajustements au système en gestion du matériel entreposé (pneus, outils etc.), limitant les pertes.</li>
+                        <li data-en="Ensured improved proactive logistics processes, such as appointment scheduling, establishing a stable workflow during busy periods."
+                            data-fr="Assurer de meilleurs processus en logistique proactive tel que la prise de rendez-vous, mettant un roulement stable durant les périodes achalandées.">Assurer de meilleurs processus en logistique proactive tel que la prise de rendez-vous, mettant un roulement stable durant les périodes achalandées.</li>
+                        <li data-en="Audited and created an integrated database for the inventory of specialized tools and the evaluation of their market value."
+                            data-fr="Audit et création d'une base de données intégrée pour l'inventaire des outils spéciaux ainsi que l'évaluation de la valeur du marché.">Audit et création d'une base de données intégrée pour l'inventaire des outils spéciaux ainsi que l'évaluation de la valeur du marché.</li>
+                        <li data-en="Corrected billing integrity for goods and services, proactively eliminating losses associated with materials stored at third-party locations."
+                            data-fr="Correction de l'intégrité en facturation pour des biens et services, élimination proactive des pertes associées au matériel entreposé chez des tiers parties.">Correction de l'intégrité en facturation pour des biens et services, élimination proactive des pertes associées au matériel entreposé chez des tiers parties.</li>
+                        <li data-en="Efficiently managed complex multi-level, highly technological warehousing with limited space for a total of 140 vehicles, crucial for rapid access and short-notice deliveries."
+                            data-fr="Gestion efficace de l'entreposage complexe multi-niveaux hautement technologique avec un espace restreint pour le nombre total de 140 véhicules, crucial pour accès rapide et livraisons de courts délais.">Gestion efficace de l'entreposage complexe multi-niveaux hautement technologique avec un espace restreint pour le nombre total de 140 véhicules, crucial pour accès rapide et livraisons de courts délais.</li>
+                    </ul>
+                </div>
+                <div class="job-experience">
+                    <h3 data-en="Consultant/Developer | IBM | August 2022 - February 2023"
+                        data-fr="Consultant/Développeur | IBM | Août 2022 - Février 2023">Consultant/Développeur | IBM | Août 2022 - Février 2023</h3>
+                    <p data-en="Montreal" data-fr="Montréal">Montréal</p>
+                    <ul>
+                        <li data-en="Assisted in the integration of IT specialists and pre-configuration of computers."
+                            data-fr="Assistance en intégration des spécialistes en informatique et pré-configuration des ordinateurs.">Assistance en intégration des spécialistes en informatique et pré-configuration des ordinateurs.</li>
+                        <li data-en="Conducted in-depth analysis of the client's infrastructure and business strategy (Call Center of a financial institution)."
+                            data-fr="Analyse approfondie de l'infrastructure et stratégie d'affaires du client (Centre d'appels d'une institution financière).">Analyse approfondie de l'infrastructure et stratégie d'affaires du client (Centre d'appels d'une institution financière).</li>
+                        <li data-en="Gradually migrated existing technologies to the CCaaS Cloud with Genesys."
+                            data-fr="Migration graduelle des technologies existantes dans le &lt;i&gt;Cloud&lt;/i&gt; CCaaS avec Genesys.">Migration graduelle des technologies existantes dans le <i>Cloud</i> CCaaS avec Genesys.</li>
+                        <li data-en="Created scripts for specific functionalities based on client requests."
+                            data-fr="Création des &lt;i&gt;scripts&lt;/i&gt; pour des fonctionnalités spécifiques selon la demande du client.">Création des <i>scripts</i> pour des fonctionnalités spécifiques selon la demande du client.</li>
+                        <li data-en="Presented a UCaaS, CCaaS, CPaaS concept to a new client, offering solutions with AWS Connect or Genesys."
+                            data-fr="Présentation d'un concept UCaaS, CCaaS, CPaaS à un nouveau client offrant solutions avec AWS Connect ou Genesys.">Présentation d'un concept UCaaS, CCaaS, CPaaS à un nouveau client offrant solutions avec AWS Connect ou Genesys.</li>
+                        <li data-en="Provided &lt;i&gt;Hypercare&lt;/i&gt; support for large-scale production launches (PAT/UAT) and real-time defect detection."
+                            data-fr="Suivi &lt;i&gt; Hypercare &lt;/i&gt; des lancements à l'échelle vers la production (PAT/UAT) et la détection des défauts en temps réel.">Suivi <i> Hypercare </i> des lancements à l'échelle vers la production (PAT/UAT) et la détection des défauts en temps réel.</li>
+                    </ul>
+                </div>
+                <div class="job-experience">
+                    <h3 data-en="Full-Stack Developer"
+                        data-fr="Développeur Full-Stack | Octobre 2021 - Janvier 2022">Développeur Full-Stack | Boreal-is | Octobre 2021 - Janvier 2022</h3>
+                    <p data-en="Montreal" data-fr="Montréal">Montréal</p>
+                    <ul>
+                        <li data-en="Created, maintained, and debugged React-Redux &lt;i&gt;components&lt;/i&gt; functionalities for the mobile application content."
+                            data-fr="Création, maintien et débogage des fonctionnalités &lt;i&gt;components&lt;/i&gt; React-Redux du contenu de l'application mobile.">Création, maintien et débogage des fonctionnalités <i>components</i> React-Redux du contenu de l'application mobile.</li>
+                        <li data-en="Collaborated effectively in Agile mode, participating in daily meetings with IT team members."
+                            data-fr="Collaboration efficace en mode Agile, participations aux rencontres quotidiennes avec des membres d'équipe TI.">Collaboration efficace en mode Agile, participations aux rencontres quotidiennes avec des membres d'équipe TI.</li>
+                        <li data-en="Produced explanatory documentation."
+                            data-fr="Production de la documentation explicative.">Production de la documentation explicative.</li>
+                        <li data-en="Migrated old &lt;i&gt;Legacy&lt;/i&gt; code to the new &lt;i&gt;front-end&lt;/i&gt; using Jest/Cypress unit tests and others (global state, cache, elastic search)."
+                            data-fr="Migration de l'ancien code &lt;i&gt;Legacy&lt;/i&gt; vers le nouveau &lt;i&gt;front-end&lt;/i&gt; tests unitaires &lt;i&gt;Jest/Cypress&lt;/i&gt; et autres (global state, cache, elastic search).">Migration de l'ancien code <i>Legacy</i> vers le nouveau <i>front-end</i> tests unitaires <i>Jest/Cypress</i> et autres (global state, cache, elastic search).</li>
+                        <li data-en="Created tickets (JIRA), conducted &lt;i&gt;Peer-Reviews&lt;/i&gt;, and quickly corrected QA rejections."
+                            data-fr="Création des billets (JIRA), &lt;i&gt;Peer-Review&lt;/i&gt;, correction rapide des rejets QA.">Création des billets (JIRA), <i>Peer-Review</i>, correction rapide des rejets QA.</li>
+                    </ul>
+                </div>
+                <div class="job-experience">
+                    <h3 data-en="Sales Director"
+                        data-fr="Directeur des ventes">Directeur des ventes | Volkswagen | Janvier 2013 - Janvier 2018</h3>
+                    <p data-en="Montreal" data-fr="Montréal">Montréal</p>
+                    <ul>
+                        <li data-en="Previously held the role of Sales Consultant &lt;i&gt;(2008 to 2013)&lt;/i&gt;."
+                            data-fr="Précédemment occupant le rôle de consultant aux ventes &lt;i&gt;(2008 à 2013)&lt;/i&gt;.">Précédemment occupant le rôle de consultant aux ventes <i>(2008 à 2013)</i>.</li>
+                        <li data-en="Significantly increased the CSE satisfaction index to 98%+."
+                            data-fr="Augmentation significative de l'index de satisfaction CSE de 98%+.">Augmentation significative de l'index de satisfaction CSE de 98%+.</li>
+                        <li data-en="Effectively managed and modernized the department for the vehicle fleet, transportation logistics, and obtaining necessary documentation through close collaboration with multiple departments."
+                            data-fr="Gestion efficace et modernisation du département pour le flotte automobile, logistique de transports et obtention de documentation nécessaire avec collaboration étroite avec multiple départements.">Gestion efficace et modernisation du département pour le flotte automobile, logistique de transports et obtention de documentation nécessaire avec collaboration étroite avec multiple départements.</li>
+                        <li data-en="Increased inventory turnover with a complete rotation of up to six times per year."
+                            data-fr="Augmentation en roulement d'inventaire avec une rotation complète jusqu'à six fois par année.">Augmentation en roulement d'inventaire avec une rotation complète jusqu'à six fois par année.</li>
+                        <li data-en="Replaced previous losses with profit realization by offering better sales incentives."
+                            data-fr="Substitution des pertes antérieures avec une réalisation des profits en offrant meilleurs incitatifs de vente.">Substitution des pertes antérieures avec une réalisation des profits en offrant meilleurs incitatifs de vente.</li>
+                        <li data-en="Was part of the circle of the best-performing dealerships in the country."
+                            data-fr="A fait partie du cercle des concessionnaires les mieux performants au pays.">A fait partie du cercle des concessionnaires les mieux performants au pays.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-en="Education (in Canada)" data-fr="Éducation (au Canada)">Éducation (au Canada)</h2>
+            <div class="content">
+                <div class="education">
+                    <p data-en="DES (Diploma of Secondary Studies) in French Secondary V and equivalent intensive 536 adult education courses. Two years of college program in Business Analysis."
+                       data-fr="DES en français secondaire 5 et équivalent des matières 536 intensif école adulte. Deux ans de programme collégial dans l'analyse d'affaires.">DES en français secondaire 5 et équivalent des matières 536 intensif école adulte. Deux ans de programme collégial dans l'analyse d'affaires.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-en="Volunteering" data-fr="Bénévolat">Bénévolat</h2>
+            <div class="content">
+                <div class="volunteering">
+                    <p data-en="École de l'Amitié | French Teacher | 2023 - 2024"
+                       data-fr="École de l'Amitié | Professeur de français | 2023 - 2024">École de l'Amitié | Professeur de français | 2023 - 2024</p>
+                </div>
+                <div class="volunteering">
+                    <p data-en="MR-63 Cultural Projects | Logistics and Material Installation Assistant | 2022 - 2024"
+                       data-fr="Projets culturels MR-63 | Assistant en logistique et installation du matériel | 2022 - 2024">Projets culturels MR-63 | Assistant en logistique et installation du matériel | 2022 - 2024</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-en="Certifications" data-fr="Cértifications">Cértifications</h2>
+            <div class="content">
+                <div class="project">
+                    <p data-en="Watson Assistant (chatbot configuration) IBM"
+                       data-fr="Watson Assistant (configuration des &lt;i&gt;chatbots&lt;/i&gt;) IBM">Watson Assistant (configuration des <i>chatbots</i>) IBM</p>
+                    <p data-en="SQL for Data Science with R IBM"
+                       data-fr="SQL pour Data Science avec R IBM">SQL pour Data Science avec R IBM</p>
+                    <p data-en="Coaching and Mentoring for Technical Professionals IBM"
+                       data-fr="Coaching and Mentoring for Technical Professionals IBM">Coaching and Mentoring for Technical Professionals IBM</p>
+                    <p data-en="Cloud Certified Partner GENESYS CLOUD"
+                       data-fr="Cloud Certified Partner GENESYS CLOUD">Cloud Certified Partner GENESYS CLOUD</p>
+                    <p data-en="Node-RED (automation and bot programming) IBM"
+                       data-fr="Node-RED (automatisation et programmation des bots) IBM">Node-RED (automatisation et programmation des bots) IBM</p>
+                    <p data-en="Think Like a Hacker IBM"
+                       data-fr="Think Like a Hacker IBM">Think Like a Hacker IBM</p>
+                    <p data-en="Solutions Architect for Kubernetes and &lt;i&gt;CloudPaks&lt;/i&gt; IBM"
+                       data-fr="Solutions Architect pour Kubernetes et &lt;i&gt;CloudPaks&lt;/i&gt; IBM">Solutions Architect pour Kubernetes et <i>CloudPaks</i> IBM</p>
+                    <p data-en="Agile Explorer IBM"
+                       data-fr="Agile Explorer IBM">Agile Explorer IBM</p>
+                    <p data-en="Cyber Security Threat Intelligence IBM"
+                       data-fr="Cyber Security Threat Intelligence IBM">Cyber Security Threat Intelligence IBM</p>
+                    <p data-en="Cloud Native Developer IBM"
+                       data-fr="Cloud Native Developer IBM">Cloud Native Developer IBM</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2 data-en="Projects" data-fr="Projets">Projets</h2>
+            <div class="content">
+                <div class="project">
+                    <p data-en="Conceptualization and creation of a full-stack application for technical analysis enthusiasts of motorsport (F1)."
+                       data-fr="Conceptualisation et création d'une application full-stack pour les amateurs en analytique technique de la course automobile (F1).">Conceptualisation et création d'une application full-stack pour les amateurs en analytique technique de la course automobile (F1).</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2 data-en="Interests" data-fr="Intérêts">Intérêts</h2>
+            <div class="content">
+                <div class="project">
+                    <p data-en="Competitive road cycling and training. Spin. 3D Animations. Painting. Precise scale model cars."
+                       data-fr="Vélo de route compétitif et entraînement. Spin. Animations 3D. Peinture. Réplique précise d'automobiles à l'échelle.">Vélo de route compétitif et entraînement. Spin. Animations 3D. Peinture. Réplique précise d'automobiles à l'échelle.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+    // Theme Toggle
+    $('#theme-toggle').on('change', function() {
+        $('body').toggleClass('night-mode');
+        $('.container').toggleClass('night-mode');
+        $('header').toggleClass('night-mode');
+        $('section h2').toggleClass('night-mode');
+        $('.job-experience, .education, .volunteering, .project').toggleClass('night-mode');
+        $('.skill').toggleClass('night-mode');
+        $('.switch-label').toggleClass('night-mode');
+    });
+
+    // Language Toggle
+    $('#lang-toggle').on('change', function() {
+        const lang = $(this).prop('checked') ? 'fr' : 'en';
+        $('[data-' + lang + ']').each(function() {
+            const text = $(this).data(lang);
+            $(this).text(text);
+        });
+        $('html').attr('lang', lang + '-CA'); // Update HTML lang attribute
+    });
+
+    // Collapse Sections (except Profile and Experience)
+    $('section h2').not(':contains("Profil"), :contains("Expérience")').on('click', function() {
+        $(this).next('.content').toggleClass('collapsed');
+    });
+
+    // Initially collapse all sections except Profile and Experience
+    $('section h2:not(:contains("Profil"), :contains("Expérience"))').each(function() {
+        $(this).next('.content').addClass('collapsed');
+    });
+});
+    </script>
+</body>
+
+</html>
