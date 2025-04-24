@@ -14,7 +14,7 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
-            line-height: 1.5;
+            line-height: 1;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -63,7 +63,7 @@
 
         .content {
             overflow: hidden;
-            max-height: 1000px; /* Initial visible height */
+            max-height: 2000px; /* Initial visible height */
             transition: max-height 0.3s ease;
         }
 
@@ -282,7 +282,7 @@
 
     <div class="container">
         <header>
-            <h1 data-en="Sergey B" data-fr="Sergey B">CV de Sergey B</h1>
+            <h1 data-en="Sergey B" data-fr="Sergey B">Sergey B</h1>
             <p>
                 <span data-en="email" data-fr="courriel">courriel</span>: fly.ford_8h@icloud.com |
                 <span data-en="Location" data-fr="Localisation">Localisation</span>: Montréal |
@@ -404,8 +404,8 @@
                     </ul>
                 </div>
                 <div class="job-experience">
-                    <h3 data-en="Sales Director"
-                        data-fr="Directeur des ventes">Directeur des ventes | Volkswagen | Janvier 2013 - Janvier 2018</h3>
+                    <h3 data-en="Sales Director | Volkswagen | January 2013 - January 2018"
+                        data-fr="Directeur des ventes | Volkswagen | Janvier 2013 - Janvier 2018">Directeur des ventes | Volkswagen | Janvier 2013 - Janvier 2018</h3>
                     <p data-en="Montreal" data-fr="Montréal">Montréal</p>
                     <ul>
                         <li data-en="Previously held the role of Sales Consultant &lt;i&gt;(2008 to 2013)&lt;/i&gt;."
@@ -499,37 +499,35 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-    // Theme Toggle
-    $('#theme-toggle').on('change', function() {
-        $('body').toggleClass('night-mode');
-        $('.container').toggleClass('night-mode');
-        $('header').toggleClass('night-mode');
-        $('section h2').toggleClass('night-mode');
-        $('.job-experience, .education, .volunteering, .project').toggleClass('night-mode');
-        $('.skill').toggleClass('night-mode');
-        $('.switch-label').toggleClass('night-mode');
-    });
-
-    // Language Toggle
-    $('#lang-toggle').on('change', function() {
-        const lang = $(this).prop('checked') ? 'fr' : 'en';
-        $('[data-' + lang + ']').each(function() {
-            const text = $(this).data(lang);
-            $(this).text(text);
+        // Theme Toggle
+        $('#theme-toggle').on('change', function() {
+            $('body').toggleClass('night-mode');
+            $('.container').toggleClass('night-mode');
+            $('header').toggleClass('night-mode');
+            $('section h2').toggleClass('night-mode');
+            $('.job-experience, .education, .volunteering, .project').toggleClass('night-mode');
+            $('.skill').toggleClass('night-mode');
+            $('.switch-label').toggleClass('night-mode');
         });
-        $('html').attr('lang', lang + '-CA'); // Update HTML lang attribute
-    });
 
-    // Collapse Sections (except Profile and Experience)
-    $('section h2').not(':contains("Profil"), :contains("Expérience")').on('click', function() {
-        $(this).next('.content').toggleClass('collapsed');
-    });
+        // Language Toggle
+        $('#lang-toggle').on('change', function() {
+            const lang = $(this).prop('checked') ? 'fr' : 'en';
+            $('[data-' + lang + ']').each(function() {
+                const text = $(this).data(lang);
+                $(this).text(text);
+            });
+            $('html').attr('lang', lang + '-CA'); // Update HTML lang attribute
+        });
 
-    // Initially collapse all sections except Profile and Experience
-    $('section h2:not(:contains("Profil"), :contains("Expérience"))').each(function() {
-        $(this).next('.content').addClass('collapsed');
+        // Collapse All Sections on Click
+        $('section h2').on('click', function() {
+            $(this).next('.content').toggleClass('collapsed');
+        });
+
+        // Initially collapse all content divs
+        $('.content').addClass('collapsed');
     });
-});
     </script>
 </body>
 
