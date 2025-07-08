@@ -483,8 +483,90 @@
             </div>
         </section>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const langToggle = document.getElementById('lang-toggle');
+            const body = document.body;
+            const container = document.getElementById('resume-container');
+            const header = document.getElementById('resume-header');
+            const sections = document.querySelectorAll('section');
+            const jobExperiences = document.querySelectorAll('.job-experience');
+            const educationDivs = document.querySelectorAll('.education');
+            const volunteeringDivs = document.querySelectorAll('.volunteering');
+            const projectDivs = document.querySelectorAll('.project');
+            const skills = document.querySelectorAll('.skill');
+            const switchLabels = document.querySelectorAll('.switch-label');
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            const elementsToToggle = [
+                body, container, header, ...sections, ...jobExperiences, ...educationDivs,
+                ...volunteeringDivs, ...projectDivs, ...skills, ...switchLabels
+            ];
+
+            // Initialize theme from localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'night-mode') {
+                body.classList.add('night-mode');
+                elementsToToggle.forEach(el => el.classList.add('night-mode'));
+                themeToggle.checked = true;
+            }
+
+            // Initialize language from localStorage or default to English
+            let currentLang = localStorage.getItem('lang') || 'en';
+            if (currentLang === 'fr') {
+                langToggle.checked = true; // Toggle is for French if checked
+            }
+            updateLanguage(currentLang);
+
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    elementsToToggle.forEach(el => el.classList.add('night-mode'));
+                    localStorage.setItem('theme', 'night-mode');
+                } else {
+                    elementsToToggle.forEach(el => el.classList.remove('night-mode'));
+                    localStorage.setItem('theme', 'day-mode');
+                }
+            });
+
+            langToggle.addEventListener('change', () => {
+                currentLang = langToggle.checked ? 'fr' : 'en';
+                localStorage.setItem('lang', currentLang);
+                updateLanguage(currentLang);
+            });
+
+            function updateLanguage(lang) {
+                document.querySelectorAll('[data-en]').forEach(element => {
+                    if (lang === 'fr' && element.dataset.fr) {
+                        element.innerHTML = element.dataset.fr;
+                    } else if (lang === 'en' && element.dataset.en) {
+                        element.innerHTML = element.dataset.en;
+                    }
+                });
+            }
+
+            // Section collapsing functionality
+            sections.forEach(section => {
+                const heading = section.querySelector('h2');
+                const content = section.querySelector('.content');
+
+                // If content is null, skip this section
+                if (!content) return;
+
+                // Add click listener
+                heading.addEventListener('click', () => {
+                    content.classList.toggle('collapsed');
+                });
+
+                // Initially collapse all sections except Profile and Skills
+                const sectionTitle = heading.getAttribute('data-en') || heading.textContent;
+                if (sectionTitle !== 'Profile' && sectionTitle !== 'Skills') {
+                    content.classList.add('collapsed');
+                }
+            });
+        });
+    </script>
+
+<!--     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
         // Theme Toggle
@@ -516,7 +598,7 @@
         // Initially collapse all content divs
         $('.content').addClass('collapsed');
     });
-    </script>
+    </script> -->
 </body>
 
 </html>
